@@ -25,8 +25,8 @@ services:
     ports:
       - "8069:8069"
     volumes:
-      - ./addons:/mnt/extra-addons # Permite que los módulos personalizados se almacenen en la carpeta addons del host
-      - ./etc:/etc/odoo # Monta una carpeta local para configurar los archivos de Odoo
+      - odoo_addons:/addons:/mnt/extra-addons
+      - odoo_conf:/etc:/etc/odoo
   db:
     image: postgres:15
     environment:
@@ -34,7 +34,7 @@ services:
       - POSTGRES_PASSWORD=odoo
       - POSTGRES_USER=odoo
     volumes:
-        - ./postgresql:/var/lib/postgresql/data # Monta un volumen local para persistir los datos de PostgreSQL.
+        - postgres_vl:/postgresql:/var/lib/postgresql/data
   pgadmin:
     container_name: pgadmin_container
     image: dpage/pgadmin4
@@ -45,7 +45,14 @@ services:
       - db
     ports:
       - "5050:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
     restart: unless-stopped
+volumes:
+  odoo_addons:
+  odoo_conf:
+  postgres_vl:
+  pgadmin_data:
 ```
 Una vez terminado el archivo de configuración, lo lanzamos utilizando:
 ```bash
@@ -84,7 +91,7 @@ Una vez comprobado que todo funciona correctamente, me pongo a configurar todo d
 </details>
 
 <details>
-<summary> <b> 3. Pruebas y configuración (pgAdmin): </b></summary>
+<summary> <b> 4. Pruebas y configuración (pgAdmin): </b></summary>
 <br>
 
 ```bash
@@ -105,3 +112,8 @@ Para ello utilizo los siguientes datos indicados en el compose:
 ![imagen](https://github.com/user-attachments/assets/337f436d-a633-4077-bdc7-9dbb3263d601)
 
 Como se puede comprobar, todo funciona correctamente... ✌🏼
+
+**3. Tablas:**
+
+![imagen](https://github.com/user-attachments/assets/41a27006-3c05-4b8e-8b4d-d70cf56aef85)
+
