@@ -117,3 +117,27 @@ Como se puede comprobar, todo funciona correctamente... ✌🏼
 
 ![imagen](https://github.com/user-attachments/assets/41a27006-3c05-4b8e-8b4d-d70cf56aef85)
 
+</details>
+
+<details>
+<summary> <b> 5. Preguntas: </b></summary>
+<br>
+
+**1. ¿Que ocurre si en el ordenador local el puerto 5432 está ocupado?**
+
+El puerto 5432 es el predeterminado de PostgreSQL. Si ya está ocupado el puerto, Docker no podrá enlazar su contenedor a dicho puerto, asique se recibe un error al intentar iniciar el Docker Compose.
+
+**2. ¿Y si lo estuviese el 8069?**
+   
+Pues en este caso es el puerto predeterminado de Odoo, ocurriría exactamente lo mismo que con el puerto ocupado de PostgreSQL.
+
+**3. ¿Como puedes solucionarlo?**
+
+Pues la solución más sencilla es cambiar el puerto desde el fichero de `docker-compose.yml` utilizando:
+
+```yaml
+ports:
+  - "5050:80"
+```
+
+</details>
